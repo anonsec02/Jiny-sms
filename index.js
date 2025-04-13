@@ -33,9 +33,9 @@ app.use((req, res, next) => {
           <title>Access Blocked</title>
         </head>
         <body style="font-family: Arial; background: #111; color: #eee; text-align: center; padding-top: 50px;">
-          <h2>go to login page walla khali 3anak chi ma ya3nik</h2>
+          <h2>dkhel mn chor login page walla khali 3anak chi ma ya3nik</h2>
           <a href="https://jiny-sms.pages.dev" style="color: #0af; text-decoration: underline; font-size: 20px;">
-            Go to Login Page
+            Login Page
           </a>
         </body>
       </html>
