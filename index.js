@@ -3,26 +3,30 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const app = express();
 
-// حماية: لا تقبل إلا الطلبات القادمة من Cloudflare أو التي تطلب SubmitOKWithMenu.htm
+// إضافة السجلات لتتبع الطلبات
 app.use((req, res, next) => {
   const referer = req.get("referer") || "";
   const origin = req.get("origin") || "";
   const urlPath = req.originalUrl;
 
-  // السماح إذا الطلب من Cloudflare
+  // تسجيل تفاصيل الطلب في الكونسول
+  console.log("Incoming request:");
+  console.log("Referer:", referer);
+  console.log("Origin:", origin);
+  console.log("Requested URL:", urlPath);
+
+  // السماح إذا الطلب من Cloudflare أو مسار SubmitOKWithMenu.htm
   const fromCloudflare = referer.includes("jiny-sms.pages.dev") || origin.includes("jiny-sms.pages.dev");
-
-  // السماح إذا الطلب موجه إلى صفحة الاستثناء SubmitOKWithMenu.htm
   const isSubmitPage = urlPath.includes("SubmitOKWithMenu.htm");
-
-  // استثناء الرابط @@ContinueURL@@ إذا كان يجب الحماية منه
   const isContinueURLPage = urlPath.includes("ContinueURL");
 
   if (fromCloudflare || isSubmitPage || isContinueURLPage) {
+    console.log("Request allowed");
     return next();
   }
 
   // رفض أي شيء آخر
+  console.log("Request blocked");
   res.status(403).send(`
     <html>
       <head>
