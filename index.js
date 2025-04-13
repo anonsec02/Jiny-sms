@@ -3,38 +3,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const app = express();
 
-// حماية: لا تقبل إلا الطلبات القادمة من Cloudflare أو التي تطلب SubmitOKWithMenu.htm
-app.use((req, res, next) => {
-  const referer = req.get("referer") || "";
-  const origin = req.get("origin") || "";
-  const urlPath = req.originalUrl;
-
-  // السماح إذا الطلب من Cloudflare
-  const fromCloudflare = referer.includes("jiny-sms.pages.dev") || origin.includes("jiny-sms.pages.dev");
-
-  // السماح إذا الطلب موجه إلى الصفحة المستثناة تحديدًا
-  const isSubmitPage = urlPath.toLowerCase().includes("submitokwithmenu.htm");
-
-  if (fromCloudflare || isSubmitPage) {
-    return next();
-  }
-
-  // رفض أي شيء آخر
-  res.status(403).send(`
-    <html>
-      <head>
-        <title>Access Blocked</title>
-      </head>
-      <body style="font-family: Arial; background: #111; color: #eee; text-align: center; padding-top: 50px;">
-        <h2>go to login page walla khali 3anak chi ma ya3nik</h2>
-        <a href="https://jiny-sms.pages.dev" style="color: #0af; text-decoration: underline; font-size: 20px;">
-          Go to Login Page
-        </a>
-      </body>
-    </html>
-  `);
-});
-
+// حذف الحماية مؤقتًا
 app.use("/", createProxyMiddleware({
   target: "http://82.151.73.56:8800",
   changeOrigin: true,
