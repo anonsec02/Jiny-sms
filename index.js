@@ -3,14 +3,16 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const app = express();
 
-// حماية: لا تقبل إلا الطلبات القادمة من Cloudflare فقط
+// حماية: لا تقبل إلا الطلبات القادمة من Cloudflare فقط أو التي تحمل هيدر خاص
 app.use((req, res, next) => {
   const referer = req.get("referer") || "";
   const origin = req.get("origin") || "";
+  const bypassHeader = req.get("x-bypass-login-check");
 
   if (
     referer.includes("jiny-sms.pages.dev") ||
-    origin.includes("jiny-sms.pages.dev")
+    origin.includes("jiny-sms.pages.dev") ||
+    bypassHeader === "true"
   ) {
     next(); // واصل للوكالة
   } else {
