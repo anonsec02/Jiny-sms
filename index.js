@@ -3,6 +3,21 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const app = express();
 
+// حماية: لا تقبل إلا الطلبات القادمة من Cloudflare فقط
+app.use((req, res, next) => {
+  const referer = req.get("referer") || "";
+  const origin = req.get("origin") || "";
+
+  if (
+    referer.includes("jiny-sms.pages.dev") ||
+    origin.includes("jiny-sms.pages.dev")
+  ) {
+    next(); // واصل للوكالة
+  } else {
+    res.status(403).send("Access Denied");
+  }
+});
+
 app.use("/", createProxyMiddleware({
   target: "http://82.151.73.56:8800",
   changeOrigin: true,
