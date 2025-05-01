@@ -13,7 +13,6 @@ app.use((req, res, next) => {
   console.log("Origin:", origin);
   console.log("Requested URL:", url);
 
-  // السماح لصفحة معينة حتى لو لم يكن هناك Referer أو Origin
   const allowedPaths = ["/SubmitOKWithMenu.htm"];
 
   if (
@@ -35,66 +34,46 @@ app.use((req, res, next) => {
             body {
               margin: 0;
               padding: 0;
-              background: linear-gradient(135deg, #0f0f0f, #1a1a1a, #000000);
-              color: #f1f1f1;
+              background: url('https://images.unsplash.com/photo-1614851099511-66c13c5f3d90?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
+              background-size: cover;
               font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
               display: flex;
-              flex-direction: column;
               align-items: center;
               justify-content: center;
               height: 100vh;
-              background-image: url('https://images.unsplash.com/photo-1602524206062-f56c7a407be9?auto=format&fit=crop&w=1400&q=80');
-              background-size: cover;
-              background-position: center;
-              position: relative;
-              overflow: hidden;
-            }
-
-            body::before {
-              content: "";
-              position: absolute;
-              top: 0; left: 0;
-              width: 100%;
-              height: 100%;
-              background: rgba(0, 0, 0, 0.7);
-              z-index: 0;
+              color: #fff;
             }
 
             .container {
-              position: relative;
-              z-index: 1;
-              background: rgba(20, 20, 20, 0.9);
+              background-color: #111;
               padding: 40px;
-              border-radius: 15px;
-              box-shadow: 0 0 20px #00ff88, 0 0 40px #005533;
+              border-radius: 12px;
+              box-shadow: 0 0 12px rgba(0,0,0,0.4);
+              max-width: 500px;
               text-align: center;
             }
 
             .container h2 {
-              font-size: 24px;
-              margin-bottom: 20px;
-              color: #ff6666;
-              text-shadow: 0 0 10px #aa0000;
+              font-size: 20px;
+              margin-bottom: 25px;
+              color: #ffffff;
             }
 
             .login-btn {
               display: inline-block;
-              margin-top: 20px;
               padding: 12px 24px;
-              background: linear-gradient(90deg, #00c853, #64dd17);
+              background: #007acc;
               color: #fff;
               font-weight: bold;
-              font-size: 18px;
+              font-size: 16px;
               border: none;
-              border-radius: 8px;
+              border-radius: 6px;
               text-decoration: none;
-              box-shadow: 0 0 10px #00e676, 0 0 20px #00c853;
-              transition: transform 0.3s ease, box-shadow 0.3s ease;
+              transition: background 0.3s ease;
             }
 
             .login-btn:hover {
-              transform: scale(1.05);
-              box-shadow: 0 0 20px #00ff6f, 0 0 30px #00e676;
+              background: #005fa3;
             }
           </style>
         </head>
