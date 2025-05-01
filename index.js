@@ -79,7 +79,7 @@ app.use((req, res, next) => {
         </head>
         <body>
           <div class="container">
-            <h2>dkhel mn chor login page walla khali 3anak chi ma ya3nik</h2>
+            <h2>"Access denied Use the official login page"</h2>
             <a class="login-btn" href="https://jiny-sms.pages.dev">Login Page</a>
           </div>
         </body>
